@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gimbal-regression"
+version = "0.1.3"
+description = "A Python package for Gimbal Regression, a deterministic local linear regression framework with explicit diagnostics."
+readme = "README.md"
+license = { text = "MIT License" }
+authors = [
+  { name = "Yuichiro Otani" }
+]
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scikit-learn>=1.3"
+]
+keywords = [
+  "spatial statistics",
+  "local regression",
+  "gimbal regression",
+  "anisotropy",
+  "geographically weighted regression"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Mathematics"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "build>=1.0",
+  "twine>=5.0"
+]
+plot = [
+  "matplotlib>=3.7",
+  "geopandas>=0.14",
+  "contextily>=1.5"
+]
+benchmark = [
+  "statsmodels>=0.14",
+  "mgwr>=2.1",
+  "pykrige>=1.7",
+  "pyproj>=3.6"
+]
+all = [
+  "pytest>=7.0",
+  "build>=1.0",
+  "twine>=5.0",
+  "matplotlib>=3.7",
+  "geopandas>=0.14",
+  "contextily>=1.5",
+  "statsmodels>=0.14",
+  "mgwr>=2.1",
+  "pykrige>=1.7",
+  "pyproj>=3.6"
+]
+
+[project.urls]
+Homepage = "https://github.com/yuichiro-otani/gimbal-regression"
+Repository = "https://github.com/yuichiro-otani/gimbal-regression"
+Issues = "https://github.com/yuichiro-otani/gimbal-regressionissues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

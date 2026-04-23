@@ -11,7 +11,6 @@ dist/
 .pytest_cache/
 
 *.log
-*.toml
 
 # data
 *parquet.gz
