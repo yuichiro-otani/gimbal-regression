@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gimbal-regression"
-version = "0.1.3"
+version = "0.1.4"
 description = "A Python package for Gimbal Regression, a deterministic local linear regression framework with explicit diagnostics."
 readme = "README.md"
 license = { text = "MIT License" }
@@ -69,7 +69,7 @@ all = [
 [project.urls]
 Homepage = "https://github.com/yuichiro-otani/gimbal-regression"
 Repository = "https://github.com/yuichiro-otani/gimbal-regression"
-Issues = "https://github.com/yuichiro-otani/gimbal-regressionissues"
+Issues = "https://github.com/yuichiro-otani/gimbal-regression/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
