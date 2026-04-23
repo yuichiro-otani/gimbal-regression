@@ -1,0 +1,36 @@
+#python
+__pycache__/
+*.pyc
+*.pyo
+
+# python library
+build/
+dist/
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+
+*.log
+
+# output
+paper/
+paper/output/
+*.png
+*.csv
+*.tex
+
+# notebooks
+rice_paddies.ipynb
+benchmark.py
+
+# mac
+.DS_Store
+
+# python env
+.venv-publish/
+venv-test/
+venv/
+.venv/
+
+# keep specific data
+!data/meuse.csv
