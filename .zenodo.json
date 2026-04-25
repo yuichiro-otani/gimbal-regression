@@ -1,0 +1,20 @@
+{
+  "title": "gimbal-regression: A Python package for Gimbal Regression",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Otani, Yuichiro"
+    }
+  ],
+  "description": "gimbal-regression is a Python implementation of Gimbal Regression, a deterministic, geometry-aware local regression method for stable and auditable local estimation under anisotropic sampling.",
+  "license": "MIT",
+  "keywords": [
+    "Gimbal Regression",
+    "local regression",
+    "spatial statistics",
+    "computational statistics",
+    "reproducible research"
+  ],
+  "version": "0.1.4",
+  "language": "eng"
+}

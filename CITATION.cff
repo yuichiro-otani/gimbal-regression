@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+title: "gimbal-regression: A Python package for Gimbal Regression"
+authors:
+  - family-names: Otani
+    given-names: Yuichiro
+version: "0.1.4"
+date-released: "2026-04-25"
+repository-code: "https://github.com/yuichiro-otani/gimbal-regression"
+license: MIT
+keywords:
+  - Gimbal Regression
+  - local regression
+  - spatial statistics
+  - computational statistics
+  - reproducible research
