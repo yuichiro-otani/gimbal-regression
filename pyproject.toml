@@ -69,7 +69,7 @@ all = [
 [project.urls]
 Homepage = "https://github.com/yuichiro-otani/gimbal-regression"
 Repository = "https://github.com/yuichiro-otani/gimbal-regression"
-Issues = "https://github.com/yuichiro-otani/gimbal-regressionissues"
+Issues = "https://github.com/yuichiro-otani/gimbal-regression/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
