@@ -5,7 +5,7 @@ Benchmark and replication utilities for Gimbal Regression.
 
 This module provides:
 - cross-validation splitters
-- baseline model wrappers (OLS, LRR, GWR, MGWR, UK, SRF)
+- baseline model wrappers (OLS, LRR, GWR, MGWR, RK, RF-XY)
 - GR train/test benchmarking
 - standardized benchmark-side conditioning diagnostics
 - aggregation utilities for benchmark tables
@@ -633,7 +633,6 @@ def fit_train_local_and_residual_knn(
     *,
     K: int = 30,
     h_m: float = 2000.0,
-    kappa: float = 2.0,
     gamma: float = 1.0,
     n0: float = 20.0,
     use_ess: bool = True,
@@ -673,7 +672,6 @@ def fit_train_local_and_residual_knn(
     }
 
     optional_model_kwargs = {
-        "kappa": kappa,
         "min_neff": min_neff,
         "res_eta": res_eta,
         "eps_phi": eps_phi,
@@ -1306,7 +1304,7 @@ def fit_predict_OLS(
     )
 
 
-def fit_predict_SRF(
+def fit_predict_RF_XY(
     train_df: pd.DataFrame,
     test_df: pd.DataFrame,
     n_estimators: int = 300,
@@ -1359,7 +1357,7 @@ def fit_predict_SRF(
     )
 
 
-def fit_predict_UK(
+def fit_predict_RK(
     train_df: pd.DataFrame,
     test_df: pd.DataFrame,
     variogram_model: str = "spherical",
@@ -2384,7 +2382,7 @@ def aggregate_local_diagnostics(
     df = preds_df.copy()
 
     # Keep only models/rows for which local conditioning diagnostics exist.
-    # This removes OLS, UK, SRF, etc. from the diagnostic table.
+    # This removes OLS, RK, RF-XY, etc. from the diagnostic table.
     df = df[
         df["condWLS2"].notna()
     ].copy()
@@ -2634,9 +2632,9 @@ def run_benchmark(
     gr_res_mode: str = "distance",
     gr_res_eta: float = 0.5,
     gr_use_global_calibration: bool = False,
-    srf_n_estimators: int = 300,
-    srf_max_depth: int = 20,
-    uk_variogram: str = "spherical",
+    rf_xy_n_estimators: int = 300,
+    rf_xy_max_depth: int = 20,
+    rk_variogram: str = "spherical",
 ) -> Tuple[
     pd.DataFrame,
     pd.DataFrame,
@@ -2848,20 +2846,20 @@ def run_benchmark(
                 ),
             ),
             (
-                "UK",
-                lambda tr, te: fit_predict_UK(
+                "RK",
+                lambda tr, te: fit_predict_RK(
                     tr,
                     te,
-                    variogram_model=uk_variogram,
+                    variogram_model=rk_variogram,
                 ),
             ),
             (
-                "SRF",
-                lambda tr, te: fit_predict_SRF(
+                "RF-XY",
+                lambda tr, te: fit_predict_RF_XY(
                     tr,
                     te,
-                    n_estimators=srf_n_estimators,
-                    max_depth=srf_max_depth,
+                    n_estimators=rf_xy_n_estimators,
+                    max_depth=rf_xy_max_depth,
                     random_state=seed,
                 ),
             ),
@@ -3127,8 +3125,8 @@ __all__ = [
     "fit_predict_LocalRidge",
     "fit_predict_GWR",
     "fit_predict_MGWR",
-    "fit_predict_UK",
-    "fit_predict_SRF",
+    "fit_predict_RK",
+    "fit_predict_RF_XY",
     "aggregate_local_diagnostics",
     "run_benchmark",
 ]

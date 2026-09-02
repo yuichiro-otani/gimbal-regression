@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gimbal-regression"
-version = "0.1.6"
+version = "0.1.7"
 description = "A Python package for Gimbal Regression, a deterministic local linear regression framework with explicit diagnostics."
 readme = "README.md"
 license = { text = "MIT License" }
@@ -51,7 +51,9 @@ benchmark = [
   "statsmodels>=0.14",
   "mgwr>=2.1",
   "pykrige>=1.7",
-  "pyproj>=3.6"
+  "pyproj>=3.6",
+  "esda>=2.7",
+  "libpysal>=4.13"
 ]
 all = [
   "pytest>=7.0",
@@ -63,7 +65,9 @@ all = [
   "statsmodels>=0.14",
   "mgwr>=2.1",
   "pykrige>=1.7",
-  "pyproj>=3.6"
+  "pyproj>=3.6",
+  "esda>=2.7",
+  "libpysal>=4.13"
 ]
 
 [project.urls]

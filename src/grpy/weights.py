@@ -17,7 +17,9 @@ def omega_radial(dist_m, h_m):
 @njit(cache=True, fastmath=True)
 def estimate_phi_and_r(dist_m, theta_ij, h_m, eps_phi):
     """
-    Estimate bearing-based dominant direction phi and resultant length r.
+    Estimate bearing-based reference direction phi and resultant length r.
+
+    Zero-distance observations are excluded because their bearing is undefined.
 
     Parameters
     ----------
@@ -33,18 +35,32 @@ def estimate_phi_and_r(dist_m, theta_ij, h_m, eps_phi):
     Returns
     -------
     phi : float
-        Dominant bearing angle in radians, or 0 if isotropic.
+        Bearing-based reference angle in radians, or 0 if unidentified.
     r : float
         Normalized resultant length.
     """
     w = omega_radial(dist_m, h_m)
-    c = np.sum(w * np.cos(theta_ij))
-    s = np.sum(w * np.sin(theta_ij))
-    denom = np.sum(w)
+
+    c = 0.0
+    s = 0.0
+    denom = 0.0
+
+    for k in range(dist_m.shape[0]):
+        # Bearing is undefined at zero displacement.
+        if dist_m[k] <= 1e-12:
+            continue
+
+        wk = w[k]
+        c += wk * np.cos(theta_ij[k])
+        s += wk * np.sin(theta_ij[k])
+        denom += wk
+
     if denom <= 0.0:
         return 0.0, 0.0
+
     r = np.sqrt(c * c + s * s) / denom
     phi = np.arctan2(s, c) if r > eps_phi else 0.0
+
     return phi, r
 
 @njit(cache=True, fastmath=True)
@@ -201,7 +217,10 @@ def one_shot_ess_and_fallback_weights(east_m, north_m, phi, theta_z, eta, h_m, n
     if neff_raw <= 0.0:
         h_eff = h_m
     else:
-        h_eff = h_m * np.sqrt(n0 / neff_raw)
+        scale = np.sqrt(n0 / neff_raw)
+        if scale < 1.0:
+            scale = 1.0
+        h_eff = h_m * scale
 
     m00e, m01e, m11e, _ = metric_elements_from_angles(phi, theta_z, eta, h_eff)
     w1_raw = weights_from_metric(east_m, north_m, m00e, m01e, m11e)

@@ -28,7 +28,6 @@ def local_fit(
     *,
     K=50,
     h_m=3000.0,
-    kappa=1.0,
     gamma=1.0,
     n0=15.0,
     min_neff=4.0,
@@ -210,7 +209,6 @@ class GimbalRegression:
         self,
         K=50,
         h_m=3000.0,
-        kappa=1.0,
         gamma=1.0,
         n0=15.0,
         min_neff=4.0,
@@ -227,7 +225,6 @@ class GimbalRegression:
     ):
         self.K = K
         self.h_m = h_m
-        self.kappa = kappa
         self.gamma = gamma
         self.n0 = n0
         self.min_neff = min_neff
@@ -294,7 +291,6 @@ class GimbalRegression:
                     ix=ix,
                     K=self.K,
                     h_m=self.h_m,
-                    kappa=self.kappa,
                     gamma=self.gamma,
                     n0=self.n0,
                     min_neff=self.min_neff,

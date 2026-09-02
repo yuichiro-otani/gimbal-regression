@@ -256,8 +256,8 @@ They support empirical comparison of GR with methods including:
 - local ridge regression;
 - geographically weighted regression;
 - multiscale geographically weighted regression;
-- universal kriging; and
-- spatial random forest.
+- regression kriging; and
+- coordinate-augmented random forest (RF-XY).
 
 Install the required dependencies with:
 

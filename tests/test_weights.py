@@ -128,3 +128,38 @@ def test_one_shot_ess_and_fallback_weights_output_shapes_and_ranges():
     assert np.isfinite(neff_raw)
     assert np.isfinite(neff_post)
     assert used_uniform in (0, 1)
+
+def test_estimate_phi_excludes_zero_distance_observation():
+    dist_m = np.array([0.0, 100.0], dtype=np.float64)
+    theta = np.array([0.0, np.pi / 2.0], dtype=np.float64)
+
+    phi, r = estimate_phi_and_r(
+        dist_m,
+        theta,
+        h_m=1000.0,
+        eps_phi=1e-12,
+    )
+
+    # The zero-distance observation has undefined bearing and must not
+    # contribute an artificial angle of zero.
+    assert np.isclose(phi, np.pi / 2.0)
+    assert np.isclose(r, 1.0)   
+
+
+def test_ess_correction_never_shrinks_nominal_bandwidth():
+    east_m = np.array([0.0, 1.0, -1.0, 0.0], dtype=np.float64)
+    north_m = np.array([0.0, 0.0, 0.0, 1.0], dtype=np.float64)
+
+    _, h_eff, neff_raw, _, _ = one_shot_ess_and_fallback_weights(
+        east_m=east_m,
+        north_m=north_m,
+        phi=0.0,
+        theta_z=0.0,
+        eta=1.0,
+        h_m=1000.0,
+        n0=2.0,
+        n_min=1.0,
+    )
+
+    assert neff_raw >= 2.0
+    assert np.isclose(h_eff, 1000.0)    
